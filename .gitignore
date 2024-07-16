@@ -1,0 +1,8 @@
+.env
+!.gitkeep
+files/*.*
+!files/.gitkeep
+mysql/*.*
+mysql/ib*
+mysql/*/
+!mysql/.gitkeep
