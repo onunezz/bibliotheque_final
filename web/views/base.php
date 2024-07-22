@@ -1,34 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-	<?php include_once '../views/base/head.php'?>
+	<?php include_once 'base/head.php'; ?>
 </head>
-<body>	
-	<div>
-		<div>
-			<?php
-			if(isset($_GET['page'])) {
-				if( ($_GET['page'] == "home") 
-				#	|| ($_GET['page'] == "") 
-					) {
 
-					include "../views/pages/".$_GET['page'].".php";
+<body id="page-top">
+	<div id="wrapper">
+		<?php include_once 'base/sidebar.php'; ?>
+		<div id="content-wrapper" class="d-flex flex-column">
+			<div id="content">
+				<?php include_once 'base/navbar.php'; ?>
+				<div class="container-fluid">
+					<?php
+					if (isset($_GET['page'])) {
+						if (($_GET['page'] == "home")
+							#	|| ($_GET['page'] == "") 
+						) {
 
-				} else {
+							include "../views/pages/" . $_GET['page'] . ".php";
+						} else {
 
-					include "../views/error404.php";
+							include "../views/error404.php";
+						}
+					} else {
 
-				}
-
-			} else {
-
-				include "../views/pages/home.php";
-
-			}				
-			?>
+						include "../views/pages/home.php";
+					}
+					?>
+				</div>
+			</div>
 		</div>
-		<?php include_once '../views/base/footer.php'?>
-	</div>	
-	<?php include_once '../views/base/scripts.php'?>
+	</div>
+	<?php //include_once '../views/base/footer.php' 
+	?>
+	<?php include_once '../views/base/scripts.php' ?>
 </body>
+
 </html>
