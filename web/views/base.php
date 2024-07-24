@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,19 +14,14 @@
 				<?php include_once 'base/navbar.php'; ?>
 				<div class="container-fluid">
 					<?php
-					if (isset($_GET['page'])) {
-						if (($_GET['page'] == "home")
-							#	|| ($_GET['page'] == "") 
-						) {
-
-							include "../views/pages/" . $_GET['page'] . ".php";
-						} else {
-
-							include "../views/error404.php";
+					if (isset($_GET['pages']) && (isset($_SESSION['role_id']))) {
+						switch ($_SESSION['role_id']) {
+							case 1:
+								include_once "getRoles/getAdminRol.php";
+								break;
 						}
 					} else {
-
-						include "../views/pages/home.php";
+						include "views/pages/home.php";
 					}
 					?>
 				</div>
@@ -34,7 +30,7 @@
 	</div>
 	<?php //include_once '../views/base/footer.php' 
 	?>
-	<?php include_once '../views/base/scripts.php' ?>
+	<?php include_once 'base/scripts.php' ?>
 </body>
 
 </html>
