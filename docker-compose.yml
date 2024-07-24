@@ -32,7 +32,7 @@ services:
      - "8060:80"
     env_file: .env
     volumes:
-     - ./:/var/www/html
+     - ./web:/var/www/html
      - ./000-default.conf:/etc/apache2/sites-available/000-default.conf
     networks:
       - mvc
