@@ -1,16 +1,11 @@
 # bibliotheque_final
 
-### Red del proyecto
-
-**sudo docker network create mvc**
-
 ### Variables de entorno
-
-Estos valores hay que colocarlos en el archivo .env, que debemos crear, por fuera de la carpeta app/
 
 ```
 TZ=America/Argentina/Buenos_Aires
-MYSQL_SERVER=mvc-db
+APACHE_PORT=3004
+MYSQL_SERVER=db
 MYSQL_ROOT_PASSWORD=root
 PMA_HOST=mysqldb
 MYSQL_DATABASE=bibliotheque
@@ -24,5 +19,4 @@ MYSQL_PASS=root
 
 ### Accesos
 
-- http://localhost:8061 -> PhpMyAdmin
-- http://localhost:8060 -> servidor apache
+- http://localhost:3004 -> Formulario de ingreso a la plataforma.
