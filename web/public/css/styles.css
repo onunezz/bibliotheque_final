@@ -1,0 +1,13 @@
+.h1-home{
+    font-size: 5rem;
+    font-weight: 600;
+}
+
+.biggerText{
+    font-size: 1.2rem;
+}
+
+.margin-nav-item{
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
