@@ -25,7 +25,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Gestión de libros:</h6>
-                <a class="collapse-item" href="#">Editoriales</a>
+                <a class="collapse-item" href="index.php?pages=manageEditorials">Editoriales</a>
                 <a class="collapse-item" href="#">Autores</a>
                 <a class="collapse-item" href="#">Todo</a>
             </div>
