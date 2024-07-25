@@ -6,11 +6,11 @@
 TZ=America/Argentina/Buenos_Aires
 APACHE_PORT=3004
 MYSQL_SERVER=db
+MYSQL_USER=biblio
+MYSQL_PASS=hola1234
+MYSQL_USER_PASSWORD=root
 MYSQL_ROOT_PASSWORD=root
-PMA_HOST=mysqldb
 MYSQL_DATABASE=bibliotheque
-MYSQL_USER=root
-MYSQL_PASS=root
 ```
 
 ### Levantar el proyecto
