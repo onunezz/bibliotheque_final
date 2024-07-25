@@ -11,13 +11,13 @@ class UserController
             if ($verificar != false) {
                 $mail_user = $verificar['email'];
                 $id_user = $verificar['id'];
-                $rol = $verificar['role_id'];
+                $rol = $verificar['fk_role_id'];
                 $state = $verificar['state'];
 
                 if ($state == 1) {
                     $_SESSION['state'] = $state;
                     $_SESSION['email'] = $mail_user;
-                    $_SESSION['role_id'] = $rol;
+                    $_SESSION['fk_role_id'] = $rol;
                     $_SESSION['id_user'] = $id_user;
 
                     echo '<script>

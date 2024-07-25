@@ -14,8 +14,8 @@
 				<?php include_once 'base/navbar.php'; ?>
 				<div class="container-fluid">
 					<?php
-					if (isset($_GET['pages']) && (isset($_SESSION['role_id']))) {
-						switch ($_SESSION['role_id']) {
+					if (isset($_GET['pages']) && (isset($_SESSION['fk_role_id']))) {
+						switch ($_SESSION['fk_role_id']) {
 							case 1:
 								include_once "getRoles/getAdminRol.php";
 								break;
