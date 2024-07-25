@@ -20,3 +20,8 @@ MYSQL_DATABASE=bibliotheque
 ### Accesos
 
 - http://localhost:3004 -> Formulario de ingreso a la plataforma.
+
+### Usuario test
+
+**email:** ale@gmail.com
+**pass:** admin
