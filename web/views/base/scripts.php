@@ -4,4 +4,6 @@
 <script src="public/js/sb-admin-2.min.js"></script>
 <script src="public/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="public/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="public/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="public/js/logoutAlert.js"></script>
 <script src="public/js/main.js"></script>

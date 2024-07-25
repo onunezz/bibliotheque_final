@@ -179,6 +179,12 @@
             </div>
         </li>
 
+        <div class="topbar-divider d-none d-sm-block"></div>
+
+        <a class="btn btn-danger my-3" id="logout-button" role="button" title="Cerrar Sesión">
+            <i class="text-white text-center fas fa-power-off"></i>
+        </a>
+
     </ul>
 
 </nav>
