@@ -17,7 +17,7 @@ services:
 
   db:
     image: mysql:5.7
-    container_name: mysql-bbltqh
+    container_name: mysql-bblthq
     restart: always
     ports:
       - "3310:3306"
