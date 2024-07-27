@@ -100,8 +100,8 @@ class NationalityController
         $nationalities = NationalityModel::getAllNationalities();
 
         foreach ($nationalities as $value) {
-            $selected = $value['id_nationality'] == $selectedNationality ? 'selected' : '';
-            echo '<option value="' . $value['id_nationality'] . '" ' . $selected . '>' . $value['name'] . '</option>';
+            $selected = ($value['id_nationality'] == $selectedNationality) ? 'selected' : '';
+            echo '<option value="' . $value['id_nationality'] . '" ' . $selected . '>' . $value['country'] . '</option>';
         }
     }
 
