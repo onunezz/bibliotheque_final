@@ -25,6 +25,7 @@ services:
       - ./mysql:/var/lib/mysql
       - ./mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
       - ./files:/var/lib/mysql-files
+    user: "1006:1006"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
