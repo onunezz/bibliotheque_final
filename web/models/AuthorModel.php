@@ -8,7 +8,9 @@ class AuthorModel
         authors.id AS id_author,
         authors.name AS name,
         authors.last_name AS last_name,
-        nationalities.country AS nationality
+        authors.fk_nationality_id AS fk_nationality_id,
+        nationalities.id AS id_nationality,
+        nationalities.country AS country
         FROM
         authors
         LEFT JOIN 

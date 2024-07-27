@@ -108,7 +108,6 @@ class AuthorController
             $last_name = ucwords(strtolower(trim($_POST['lastNameAuthor'])));
             $nationality = intval($_POST['fk_nationality_id']);
 
-            // Validación de longitud
             if (strlen($name) > 128 || strlen($last_name) > 128) {
                 echo '<script>
             document.addEventListener("DOMContentLoaded", function() {
@@ -124,7 +123,6 @@ class AuthorController
                 return;
             }
 
-            // Validación de caracteres
             if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/u", $name) || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/u", $last_name)) {
                 echo '<script>
             document.addEventListener("DOMContentLoaded", function() {
