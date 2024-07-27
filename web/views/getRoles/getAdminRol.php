@@ -1,7 +1,8 @@
 <?php
 if (
     ($_GET['pages'] == "home") ||
-    ($_GET['pages'] == "manageEditorials")
+    ($_GET['pages'] == "manageEditorials") ||
+    ($_GET['pages'] == "manageAuthors")
     # links administracion de carreras
 ) {
     include "views/pages/" . $_GET['pages'] . ".php";
