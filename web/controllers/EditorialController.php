@@ -19,7 +19,7 @@ class EditorialController
                         title: "Error",
                         text: "Nombre demasiado largo.",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageEditorials";
+                        $("#createEditorialModal").modal("show");
                     });
                 });
                 </script>';
@@ -34,7 +34,7 @@ class EditorialController
                         title: "Error",
                         text: "El nombre sólo puede contener letras, números y espacios.",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageEditorials";
+                        $("#createEditorialModal").modal("show");
                     });
                 });
                     </script>';
@@ -50,7 +50,7 @@ class EditorialController
                         title: "Error",
                         text: "El nombre de la editorial ya está registrado.",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageEditorials";
+                        $("#createEditorialModal").modal("show");
                     });
                 });
                     </script>';
@@ -90,7 +90,7 @@ class EditorialController
                         title: "Error",
                         text: "Debe completar los campos.",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageEditorials";
+                        $("#createEditorialModal").modal("show");
                     });
                 });
                     </script>';
@@ -256,6 +256,25 @@ class EditorialController
         });
         </script>';
             }
+        }
+    }
+
+    public function allEditorialsSelect()
+    {
+        $editorials = EditorialModel::getAllEditorials();
+
+        foreach ($editorials as $editorial) {
+            echo '<option value="' . htmlspecialchars($editorial['id_editorial']) . '">' . htmlspecialchars($editorial['name']) . '</option>';
+        }
+    }
+
+    public function editorialsSelect($selectedEditorial)
+    {
+        $editorials = EditorialModel::getAllEditorials();
+
+        foreach ($editorials as $editorial) {
+            $selected = ($editorial['id_editorial'] == $selectedEditorial) ? 'selected' : '';
+            echo '<option value="' . htmlspecialchars($editorial['id_editorial']) . '" ' . $selected . '>' . htmlspecialchars($editorial['name']) . '</option>';
         }
     }
 }

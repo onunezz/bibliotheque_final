@@ -19,7 +19,7 @@ class NationalityController
                         title: "Error",
                         text: "La nacionalidad sólo puede contener letras y espacios",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageAuthors";
+                        $("#createNationalityModal").modal("show");
                     });
                 });
                 </script>';
@@ -33,7 +33,7 @@ class NationalityController
                         title: "Error",
                         text: "Nombre de nación demasiado largo.",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageAuthors";
+                        $("#createNationalityModal").modal("show");
                     });
                 });
                 </script>';
@@ -88,7 +88,7 @@ class NationalityController
                         title: "Error",
                         text: "Debe completar los campos.",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageAuthors";
+                        $("#createNationalityModal").modal("show");
                     });
                 });
                     </script>';
