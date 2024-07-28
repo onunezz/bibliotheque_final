@@ -24,10 +24,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Gestión de libros:</h6>
                 <a class="collapse-item" href="index.php?pages=manageEditorials">Editoriales</a>
                 <a class="collapse-item" href="index.php?pages=manageAuthors">Autores</a>
-                <a class="collapse-item" href="#">Todo</a>
+                <a class="collapse-item" href="#">Gestión de libros</a>
             </div>
         </div>
     </li>
@@ -48,7 +47,6 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Gestión de usuarios:</h6>
                 <a class="collapse-item" href="#">Usuarios</a>
                 <a class="collapse-item" href="#">Mis datos</a>
             </div>
@@ -56,7 +54,7 @@
     </li>
 
     <li class="nav-item margin-nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="#">
             <i class="fas fa-fw fa-download"></i>
             <span>Reporte</span></a>
     </li>
