@@ -10,7 +10,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
 
-                <span class="badge badge-danger badge-counter">3+</span>
+                <!--<span class="badge badge-danger badge-counter">3+</span>-->
             </a>
         </li>
 
