@@ -22,13 +22,14 @@ class AuthorController
                         title: "Error",
                         text: "Los nombres y/o apellidos sólo pueden contener letras y espacios",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageAuthors";
+                        $("#createAuthorModal").modal("show");
                     });
                 });
                 </script>';
+                return;
             }
 
-            if (strlen($name) > 128 || strlen($last_name) > 128) {
+            if (strlen($name) > 64 || strlen($last_name) > 64) {
                 echo '<script>
                 document.addEventListener("DOMContentLoaded", function() {
                     Swal.fire({
@@ -36,31 +37,18 @@ class AuthorController
                         title: "Error",
                         text: "Nombres y/o apellidos demasiado largos.",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageAuthors";
-                    });
-                });
-                </script>';
-            }
-
-            $nationality = $_POST['fk_nationality_id'];
-
-            if (AuthorModel::checkDuplicates($name, $last_name)) {
-                echo '<script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: "El autor ya está registrado.",
-                    }).then((result) => {
-                        window.location.href = "index.php?pages=manageAuthors";
+                        $("#createAuthorModal").modal("show");
                     });
                 });
                 </script>';
                 return;
-            } else {
-                $execute = AuthorModel::newAuthor($name, $last_name, $nationality);
-                if ($execute) {
-                    echo '<script>
+            }
+
+            $nationality = $_POST['fk_nationality_id'];
+
+            $execute = AuthorModel::newAuthor($name, $last_name, $nationality);
+            if ($execute) {
+                echo '<script>
                 document.addEventListener("DOMContentLoaded", function() {
                     Swal.fire({
                         icon: "success",
@@ -71,8 +59,8 @@ class AuthorController
                     });
                 });
                     </script>';
-                } else {
-                    echo '<script>
+            } else {
+                echo '<script>
                 document.addEventListener("DOMContentLoaded", function() {
                     Swal.fire({
                         icon: "error",
@@ -83,7 +71,6 @@ class AuthorController
                     });
                 });
                     </script>';
-                }
             }
         } else {
             echo '<script>
@@ -93,7 +80,7 @@ class AuthorController
                         title: "Error",
                         text: "Debe completar los campos.",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageAuthors";
+                        $("#createAuthorModal").modal("show");
                     });
                 });
                     </script>';
@@ -108,7 +95,7 @@ class AuthorController
             $last_name = ucwords(strtolower(trim($_POST['lastNameAuthor'])));
             $nationality = intval($_POST['fk_nationality_id']);
 
-            if (strlen($name) > 128 || strlen($last_name) > 128) {
+            if (strlen($name) > 64 || strlen($last_name) > 64) {
                 echo '<script>
             document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
@@ -177,6 +164,25 @@ class AuthorController
             });
         });
         </script>';
+        }
+    }
+
+    public function allAuthorsSelect()
+    {
+        $authors = AuthorModel::getAllAuthors();
+
+        foreach ($authors as $author) {
+            echo '<option value="' . htmlspecialchars($author['id_author']) . '">' . htmlspecialchars($author['last_name'] . " " . $author['name']) . '</option>';
+        }
+    }
+
+    public function authorsSelect($selectedAuthor)
+    {
+        $authors = AuthorModel::getAllAuthors();
+
+        foreach ($authors as $author) {
+            $selected = ($author['id_author'] == $selectedAuthor) ? 'selected' : '';
+            echo '<option value="' . htmlspecialchars($author['id_author']) . '" ' . $selected . '>' . htmlspecialchars($author['last_name'] . " " . $author['name']) . '</option>';
         }
     }
 }

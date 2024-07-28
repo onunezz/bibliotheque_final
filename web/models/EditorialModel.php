@@ -14,14 +14,14 @@ class EditorialModel
         $stmt = MysqlDb::connect()->prepare($sql);
 
         if ($stmt->execute()) {
-
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $editorials = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $editorials;
         } else {
-
             print_r($stmt->errorInfo());
+            $stmt = null;
+            return [];
         }
-
-        $stmt = null;
     }
 
     static public function newEditorial($value1)

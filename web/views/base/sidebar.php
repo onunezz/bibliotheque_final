@@ -26,7 +26,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="index.php?pages=manageEditorials">Editoriales</a>
                 <a class="collapse-item" href="index.php?pages=manageAuthors">Autores</a>
-                <a class="collapse-item" href="#">Gestión de libros</a>
+                <a class="collapse-item" href="index.php?pages=manageBooks">Gestión de libros</a>
             </div>
         </div>
     </li>

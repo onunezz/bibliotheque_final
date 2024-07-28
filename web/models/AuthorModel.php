@@ -19,15 +19,16 @@ class AuthorModel
         $stmt = MysqlDb::connect()->prepare($sql);
 
         if ($stmt->execute()) {
-
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $authors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $authors;
         } else {
-
             print_r($stmt->errorInfo());
+            $stmt = null;
+            return [];
         }
-
-        $stmt = null;
     }
+
 
     static public function newAuthor($value1, $value2, $value3)
     {
