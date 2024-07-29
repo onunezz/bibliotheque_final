@@ -120,4 +120,23 @@ class BookModel
         $stmt->execute();
         return $stmt->fetchColumn() > 0 ? true : false;
     }
+
+    public static function getBookQuantity($book_id)
+    {
+        $db = MysqlDb::connect();
+        $stmt = $db->prepare("SELECT amount FROM books WHERE id = :book_id");
+        $stmt->bindParam(':book_id', $book_id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['amount'] ?? 0;
+    }
+
+    public static function updateBookQuantity($book_id, $new_quantity)
+    {
+        $db = MysqlDb::connect();
+        $stmt = $db->prepare("UPDATE books SET amount = :new_quantity WHERE id = :book_id");
+        $stmt->bindParam(':new_quantity', $new_quantity);
+        $stmt->bindParam(':book_id', $book_id);
+        $stmt->execute();
+    }
 }

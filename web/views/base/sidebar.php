@@ -23,7 +23,7 @@
     </li>
 
     <li class="nav-item margin-nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="index.php?pages=manageLoans">
             <i class="fas fa-fw fa-file-export"></i>
             <span>Préstamos</span></a>
     </li>
