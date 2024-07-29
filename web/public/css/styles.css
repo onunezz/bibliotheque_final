@@ -11,3 +11,11 @@
     margin-top: .5rem;
     margin-bottom: .5rem;
 }
+
+.gradient-text{
+    background: linear-gradient(
+        to right, #1A2980, #26D0CE
+    );
+    background-clip: text;
+    color:transparent;
+}

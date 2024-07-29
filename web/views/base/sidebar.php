@@ -16,6 +16,17 @@
     </li>
 
     <hr class="sidebar-divider mb-0">
+    <li class="nav-item margin-nav-item">
+        <a class="nav-link" href="index.php?pages=manageClients">
+            <i class=" fas fa-fw fa-user"></i>
+            <span>Clientes</span></a>
+    </li>
+
+    <li class="nav-item margin-nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-file-export"></i>
+            <span>Préstamos</span></a>
+    </li>
 
     <li class="nav-item margin-nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -31,11 +42,6 @@
         </div>
     </li>
 
-    <li class="nav-item margin-nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-file-export"></i>
-            <span>Préstamos</span></a>
-    </li>
 
 
     <hr class="sidebar-divider mb-0">

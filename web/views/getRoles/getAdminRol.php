@@ -3,7 +3,8 @@ if (
     ($_GET['pages'] == "home") ||
     ($_GET['pages'] == "manageEditorials") ||
     ($_GET['pages'] == "manageAuthors") ||
-    ($_GET['pages'] == "manageBooks")
+    ($_GET['pages'] == "manageBooks") ||
+    ($_GET['pages'] == "manageClients")
     # links administracion de carreras
 ) {
     include "views/pages/" . $_GET['pages'] . ".php";
