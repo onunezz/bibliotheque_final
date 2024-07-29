@@ -329,4 +329,13 @@ class ClientController
             }
         }
     }
+
+    static public function allClientsSelect()
+    {
+        $clients = ClientModel::getAllClients();
+
+        foreach ($clients as $client) {
+            echo '<option value="' . htmlspecialchars($client['id_client']) . '">' . htmlspecialchars($client['last_name_client'] . " " . $client['name']) . '</option>';
+        }
+    }
 }

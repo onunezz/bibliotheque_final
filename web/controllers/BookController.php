@@ -345,4 +345,13 @@ class BookController
     {
         return date("Y");
     }
+
+    static public function allBooksSelect()
+    {
+        $books = BookModel::getAllBooks();
+
+        foreach ($books as $book) {
+            echo '<option value="' . htmlspecialchars($book['id_book']) . '">' . htmlspecialchars($book['title']) . '</option>';
+        }
+    }
 }
