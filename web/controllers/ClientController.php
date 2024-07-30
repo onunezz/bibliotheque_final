@@ -100,7 +100,7 @@ class ClientController
                     Swal.fire({
                         icon: "error",
                         title: "Error",
-                        text: "Email no valido.",
+                        text: "Email no válido.",
                     }).then((result) => {
                         $("#createClientModal").modal("show");
                     });
@@ -165,6 +165,131 @@ class ClientController
             </script>';
         }
     }
+
+    static public function quickNewClient()
+    {
+        if (!empty($_POST['lastNameClient']) && !empty($_POST['dniClient']) && !empty($_POST['emailClient'])) {
+            $last_name = ucwords(strtolower(trim($_POST['lastNameClient'])));
+            if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u", $last_name)) {
+                echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "El apellido sólo puede contener letras y espacios.",
+                }).then((result) => {
+                    $("#quickCreateClientModal").modal("show");
+                });
+            });
+            </script>';
+                return;
+            }
+
+            if (strlen($last_name) > 64) {
+                echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Apellido demasiado largo.",
+                }).then((result) => {
+                    $("#quickCreateClientModal").modal("show");
+                });
+            });
+            </script>';
+                return;
+            }
+
+            $dni = trim($_POST['dniClient']);
+            if (!preg_match('/^\d{7,8}$/', $dni)) {
+                echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "DNI no válido.",
+                }).then((result) => {
+                    $("#quickCreateClientModal").modal("show");
+                });
+            });
+            </script>';
+                return;
+            }
+
+            $email = strtolower(trim($_POST['emailClient']));
+            if ((filter_var($email, FILTER_VALIDATE_EMAIL)) === false) {
+                echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Email no valido.",
+                }).then((result) => {
+                    $("#quickCreateClientModal").modal("show");
+                });
+            });
+            </script>';
+                return;
+            }
+
+            if (ClientModel::checkForDuplicates($dni, $email)) {
+                echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Email o DNI ya registrados.",
+                }).then((result) => {
+                    $("#quickCreateClientModal").modal("show");
+                });
+            });
+            </script>';
+                return;
+            } else {
+                $execute = ClientModel::newClientQuick($last_name, $dni, $email);
+                if ($execute) {
+                    echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Éxito",
+                        text: "El cliente se registró correctamente.",
+                        showConfirmButton: false,
+                        timer: 2000,
+                    }).then((result) => {
+                        window.location.href = "index.php?pages=manageLoans";
+                    });
+                });
+                </script>';
+                } else {
+                    echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Hubo un problema al registrar al cliente.",
+                    }).then((result) => {
+                        window.location.href = "index.php?pages=manageLoans";
+                    });
+                });
+                </script>';
+                }
+            }
+        } else {
+            echo '<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Debe completar los campos.",
+            }).then((result) => {
+                $("#quickCreateClientModal").modal("show");
+            });
+        });
+        </script>';
+        }
+    }
+
 
     static public function updateClient()
     {
@@ -335,7 +460,7 @@ class ClientController
         $clients = ClientModel::getAllClients();
 
         foreach ($clients as $client) {
-            echo '<option value="' . htmlspecialchars($client['id_client']) . '">' . htmlspecialchars($client['last_name_client'] . " " . $client['name']) . '</option>';
+            echo '<option value="' . htmlspecialchars($client['id_client']) . '">' . htmlspecialchars($client['last_name'] . " " . $client['name']) . '</option>';
         }
     }
 }

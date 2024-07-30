@@ -71,6 +71,22 @@ class ClientModel
         }
     }
 
+    static public function newClientQuick($last_name, $dni, $email)
+    {
+        $sql = "INSERT INTO clients (last_name, dni, email) VALUES (:last_name, :dni, :email);";
+        $stmt = MysqlDb::connect()->prepare($sql);
+        $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+        $stmt->bindParam(':dni', $dni, PDO::PARAM_INT);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            return $stmt;
+        } else {
+            print_r($stmt->errorInfo());
+        }
+    }
+
+
     static public function updateClient($id, $last_name, $name, $address)
     {
         $sql = "UPDATE clients
