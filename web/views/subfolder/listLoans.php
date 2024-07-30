@@ -101,7 +101,7 @@ if (isset($_GET['action']) && $_GET['action'] == "loanPdf" && isset($_GET['id_lo
                                 <label for="fk_client_id">Cliente</label>
                                 <select class="form-control" name="fk_client_id" id="fk_client_id" required>
                                     <option value="" disabled selected>Seleccione un cliente</option>
-                                    <?php (new ClientController())->allClientsSelect(); ?>
+                                    <?php (new ClientController())->allActiveClientsSelect(); ?>
                                 </select>
                             </div>
                         </div>

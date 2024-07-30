@@ -12,26 +12,26 @@
     <li class="nav-item margin-nav-item">
         <a class="nav-link" href="index.php?pages=home">
             <i class="fas fa-fw fa-home"></i>
-            <span>Inicio</span></a>
+            <span class="font-weight-bold">Inicio</span></a>
     </li>
 
     <hr class="sidebar-divider mb-0">
     <li class="nav-item margin-nav-item">
         <a class="nav-link" href="index.php?pages=manageClients">
             <i class=" fas fa-fw fa-user"></i>
-            <span>Clientes</span></a>
+            <span class="font-weight-bold">Clientes</span></a>
     </li>
 
     <li class="nav-item margin-nav-item">
         <a class="nav-link" href="index.php?pages=manageLoans">
             <i class="fas fa-fw fa-file-export"></i>
-            <span>Préstamos</span></a>
+            <span class="font-weight-bold">Préstamos</span></a>
     </li>
 
     <li class="nav-item margin-nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-book"></i>
-            <span>Libros</span>
+            <span class="font-weight-bold">Libros</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -47,22 +47,15 @@
     <hr class="sidebar-divider mb-0">
 
     <li class="nav-item margin-nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Administración</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Usuarios</a>
-                <a class="collapse-item" href="#">Mis datos</a>
-            </div>
-        </div>
+        <a class="nav-link" href="index.php?pages=manageUsers">
+            <i class="fas fa-fw fa-users"></i>
+            <span class="font-weight-bold">Usuarios</span></a>
     </li>
 
     <li class="nav-item margin-nav-item">
         <a class="nav-link" href="index.php?pages=home&action=dailyReport" target="_blank">
             <i class="fas fa-fw fa-download"></i>
-            <span>Reporte</span></a>
+            <span class="font-weight-bold">Reporte</span></a>
     </li>
 
     <hr class="sidebar-divider d-none d-md-block">

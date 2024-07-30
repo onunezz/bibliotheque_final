@@ -24,7 +24,7 @@ class ClientController
                         title: "Error",
                         text: "Los nombres y/o apellidos sólo pueden contener letras y espacios",
                     }).then((result) => {
-                        $("#createClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';
@@ -39,7 +39,7 @@ class ClientController
                         title: "Error",
                         text: "Nombres y/o apellidos demasiado largos.",
                     }).then((result) => {
-                        $("#createClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';
@@ -55,7 +55,7 @@ class ClientController
                         title: "Error",
                         text: "DNI no válido.",
                     }).then((result) => {
-                        $("#createClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';
@@ -71,7 +71,7 @@ class ClientController
                         title: "Error",
                         text: "Dirección demasiado larga.",
                     }).then((result) => {
-                        $("#createClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';
@@ -86,7 +86,7 @@ class ClientController
                         title: "Error",
                         text: "La dirección sólo puede contener letras, números y espacios.",
                     }).then((result) => {
-                        $("#createClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';
@@ -102,7 +102,7 @@ class ClientController
                         title: "Error",
                         text: "Email no válido.",
                     }).then((result) => {
-                        $("#createClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';
@@ -116,7 +116,7 @@ class ClientController
                     title: "Error",
                     text: "Email o DNI ya registrados.",
                 }).then((result) => {
-                    $("#createClientModal").modal("show");
+                    window.location.href = "index.php?pages=manageClients";
                 });
             });
             </script>';
@@ -159,7 +159,7 @@ class ClientController
                     title: "Error",
                     text: "Debe completar los campos.",
                 }).then((result) => {
-                    $("#createClientModal").modal("show");
+                    window.location.href = "index.php?pages=manageClients";
                 });
             });
             </script>';
@@ -178,7 +178,7 @@ class ClientController
                     title: "Error",
                     text: "El apellido sólo puede contener letras y espacios.",
                 }).then((result) => {
-                    $("#quickCreateClientModal").modal("show");
+                    window.location.href = "index.php?pages=manageLoans";
                 });
             });
             </script>';
@@ -193,7 +193,7 @@ class ClientController
                     title: "Error",
                     text: "Apellido demasiado largo.",
                 }).then((result) => {
-                    $("#quickCreateClientModal").modal("show");
+                    window.location.href = "index.php?pages=manageLoans";
                 });
             });
             </script>';
@@ -209,7 +209,7 @@ class ClientController
                     title: "Error",
                     text: "DNI no válido.",
                 }).then((result) => {
-                    $("#quickCreateClientModal").modal("show");
+                    window.location.href = "index.php?pages=manageLoans";
                 });
             });
             </script>';
@@ -225,7 +225,7 @@ class ClientController
                     title: "Error",
                     text: "Email no valido.",
                 }).then((result) => {
-                    $("#quickCreateClientModal").modal("show");
+                    window.location.href = "index.php?pages=manageLoans";
                 });
             });
             </script>';
@@ -240,7 +240,7 @@ class ClientController
                     title: "Error",
                     text: "Email o DNI ya registrados.",
                 }).then((result) => {
-                    $("#quickCreateClientModal").modal("show");
+                    window.location.href = "index.php?pages=manageLoans";
                 });
             });
             </script>';
@@ -304,7 +304,7 @@ class ClientController
                         title: "Error",
                         text: "Los nombres y/o apellidos sólo pueden contener letras y espacios",
                     }).then((result) => {
-                        $("#editClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';
@@ -319,7 +319,7 @@ class ClientController
                         title: "Error",
                         text: "Nombres y/o apellidos demasiado largos.",
                     }).then((result) => {
-                        $("#editClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';
@@ -335,7 +335,7 @@ class ClientController
                         title: "Error",
                         text: "Dirección demasiado larga.",
                     }).then((result) => {
-                        $("#editClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';
@@ -350,7 +350,7 @@ class ClientController
                         title: "Error",
                         text: "La dirección sólo puede contener letras, números y espacios.",
                     }).then((result) => {
-                        $("#editClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';
@@ -455,9 +455,9 @@ class ClientController
         }
     }
 
-    static public function allClientsSelect()
+    static public function allActiveClientsSelect()
     {
-        $clients = ClientModel::getAllClients();
+        $clients = ClientModel::getAllActiveClients();
 
         foreach ($clients as $client) {
             echo '<option value="' . htmlspecialchars($client['id_client']) . '">' . htmlspecialchars($client['last_name'] . " " . $client['name']) . '</option>';

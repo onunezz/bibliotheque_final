@@ -103,7 +103,7 @@
                                 <label for="fk_editorial_id">Editorial</label>
                                 <select class="form-control" name="fk_editorial_id" id="fk_editorial_id" required>
                                     <option value="" disabled selected>Seleccione una editorial</option>
-                                    <?php (new EditorialController())->allEditorialsSelect(); ?>
+                                    <?php (new EditorialController())->allActiveEditorialsSelect(); ?>
                                 </select>
                             </div>
                             <div class="form-group w-75 col-md-6">

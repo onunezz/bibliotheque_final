@@ -259,9 +259,9 @@ class EditorialController
         }
     }
 
-    public function allEditorialsSelect()
+    public function allActiveEditorialsSelect()
     {
-        $editorials = EditorialModel::getAllEditorials();
+        $editorials = EditorialModel::getAllActiveEditorials();
 
         foreach ($editorials as $editorial) {
             echo '<option value="' . htmlspecialchars($editorial['id_editorial']) . '">' . htmlspecialchars($editorial['name']) . '</option>';
