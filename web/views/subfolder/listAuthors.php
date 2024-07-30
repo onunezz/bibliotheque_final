@@ -13,7 +13,7 @@
                 <span class="icon text-white-50">
                     <i class="fas fa-flag"></i>
                 </span>
-                <span class="text">Nueva nacionalidad</span>
+                <span class="text">Nueva nacionalidad </span>
             </button>
         </div>
         <div class="card-body">
