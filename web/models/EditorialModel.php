@@ -24,6 +24,30 @@ class EditorialModel
         }
     }
 
+    static public function getAllActiveEditorials()
+    {
+        $sql = "SELECT
+        editorials.id AS id_editorial,
+        editorials.name AS name,
+        editorials.state AS state
+        FROM
+        editorials
+        WHERE
+        editorials.state = 1;";
+
+        $stmt = MysqlDb::connect()->prepare($sql);
+
+        if ($stmt->execute()) {
+            $editorials = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $editorials;
+        } else {
+            print_r($stmt->errorInfo());
+            $stmt = null;
+            return [];
+        }
+    }
+
     static public function newEditorial($value1)
     {
         $sql = "INSERT INTO editorials (name, state)

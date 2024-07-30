@@ -455,9 +455,9 @@ class ClientController
         }
     }
 
-    static public function allClientsSelect()
+    static public function allActiveClientsSelect()
     {
-        $clients = ClientModel::getAllClients();
+        $clients = ClientModel::getAllActiveClients();
 
         foreach ($clients as $client) {
             echo '<option value="' . htmlspecialchars($client['id_client']) . '">' . htmlspecialchars($client['last_name'] . " " . $client['name']) . '</option>';

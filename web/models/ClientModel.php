@@ -28,6 +28,34 @@ class ClientModel
         }
     }
 
+    static public function getAllActiveClients()
+    {
+        $sql = "SELECT 
+        clients.id AS id_client,
+        clients.last_name AS last_name,
+        clients.name AS name,
+        clients.dni AS dni,
+        clients.address AS address,
+        clients.email AS email,
+        clients.state AS state
+        FROM
+        clients
+        WHERE 
+        clients.state = 1;";
+
+        $stmt = MysqlDb::connect()->prepare($sql);
+
+        if ($stmt->execute()) {
+            $authors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $authors;
+        } else {
+            print_r($stmt->errorInfo());
+            $stmt = null;
+            return [];
+        }
+    }
+
     static  public function checkForDuplicates($value1, $value2)
     {
         try {
