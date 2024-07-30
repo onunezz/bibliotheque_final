@@ -81,4 +81,17 @@ class LoanModel
         }
         $stmt = null;
     }
+
+    static public function fetchLoanDetails($id_loan)
+    {
+        $sql = "SELECT l.id, c.name AS name_client, c.last_name AS last_name_client,  b.title, l.amount, l.loan_date, l.return_date
+                FROM loans l
+                JOIN clients c ON l.fk_client_id = c.id
+                JOIN books b ON l.fk_book_id = b.id
+                WHERE l.id = :id_loan";
+        $stmt = MySQLDb::connect()->prepare($sql);
+        $stmt->bindParam(':id_loan', $id_loan, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

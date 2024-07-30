@@ -175,4 +175,9 @@ class LoanController
             }
         }
     }
+
+    static public function getLoanDetails($id_loan)
+    {
+        return LoanModel::fetchLoanDetails($id_loan);
+    }
 }

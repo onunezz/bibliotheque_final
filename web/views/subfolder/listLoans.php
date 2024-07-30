@@ -1,4 +1,10 @@
 <?php $loans = LoanController::getAllLoans(); ?>
+<?php
+if (isset($_GET['action']) && $_GET['action'] == "loanPdf" && isset($_GET['id_loan']) && isset($_GET['last_name_client'])) {
+    (new PdfController())->loanPdf($_GET['id_loan'], $_GET['last_name_client']);
+}
+?>
+
 <h1 class="h3 mb-4 text-gray-800">Gestión de préstamos</h1>
 <div class="d-flex justify-content-center">
     <div class="card shadow mb-4 col-sm-12 col-xl-12">
@@ -59,9 +65,12 @@
                                             <i class="fas fa-thumbs-up"></i>
                                         </a>
                                     <?php endif; ?>
-                                    <a href="index.php?pages=manageLoans&action=returnCheck&id_loan=<?php echo $loan['id_loan'] ?>" class="btn btn-danger edit-user">
-                                        <i class="fas fa-file-pdf"></i>
-                                    </a>
+                                    <form method="POST" action="index.php?pages=manageLoans&action=loanPdf&id_loan=<?php echo $loan['id_loan']; ?>&last_name_client=<?php echo urlencode($loan['last_name_client']); ?>">
+
+                                        <button type="submit" name="loan_pdf" class="btn btn-danger edit-user" title="Descargar PDF del prestamo">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach ?>
