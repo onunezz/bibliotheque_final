@@ -180,4 +180,30 @@ class LoanController
     {
         return LoanModel::fetchLoanDetails($id_loan);
     }
+
+    static public function generateDailyReport()
+    {
+        $date = date('Y-m-d');
+        $loans = LoanModel::fetchLoansByDate($date);
+
+        if (!$loans) {
+            die('No hay préstamos para el día de hoy.');
+        }
+
+        $route = PdfModel::generateDailyReportPdf($loans, $date);
+
+        if (file_exists($route)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="Reporte_Diario_' . $date . '.pdf"');
+            header('Content-Length: ' . filesize($route));
+            ob_clean();
+            flush();
+            readfile($route);
+            unlink($route);
+            exit;
+        } else {
+            die('El archivo PDF no existe.');
+        }
+    }
 }

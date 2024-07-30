@@ -50,4 +50,42 @@ class PdfModel
 
         return $route;
     }
+
+    static public function generateDailyReportPdf($loans, $date)
+    {
+        require_once 'vendor/fpdf/fpdf.php';
+
+        $loanDateObj = new DateTime($date);
+        $formattedLoanDate = $loanDateObj->format('d-m-Y');
+
+        $pdf = new FPDF('P', 'mm', 'A4');
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->Cell(0, 10, utf8_decode('Reporte Diario de Préstamos'), 0, 1, 'C');
+        $pdf->Ln(5);
+
+        $pdf->SetFont('Arial', 'I', 10);
+        $pdf->Cell(0, 10, utf8_decode('Fecha: ' . $formattedLoanDate), 0, 1, 'C');
+        $pdf->Ln(10);
+
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(20, 10, utf8_decode('Cantidad'), 1, 0, 'C');
+        $pdf->Cell(85, 10, utf8_decode('Título del Libro'), 1, 0, 'L');
+        $pdf->Cell(85, 10, utf8_decode('Cliente'), 1, 1, 'L');
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Ln(5);
+
+        foreach ($loans as $loan) {
+            $pdf->Cell(20, 10, utf8_decode($loan['amount']), 1, 0, 'C');
+            $pdf->Cell(85, 10, utf8_decode($loan['title']), 1, 0, 'L');
+            $pdf->Cell(85, 10, utf8_decode($loan['last_name_client'] . ' ' . $loan['name_client']), 1, 1, 'L');
+        }
+
+        ob_end_clean();
+
+        $route = 'bibliotheque - Reporte_Diario_' . $date . '.pdf';
+        $pdf->Output('I', $route);
+
+        return $route;
+    }
 }

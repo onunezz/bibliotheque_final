@@ -94,4 +94,17 @@ class LoanModel
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    static public function fetchLoansByDate($date)
+    {
+        $sql = "SELECT b.title, l.amount, c.name AS name_client, c.last_name AS last_name_client
+                FROM loans l
+                JOIN clients c ON l.fk_client_id = c.id
+                JOIN books b ON l.fk_book_id = b.id
+                WHERE DATE(l.loan_date) = :date";
+        $stmt = MySQLDb::connect()->prepare($sql);
+        $stmt->bindParam(':date', $date);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
