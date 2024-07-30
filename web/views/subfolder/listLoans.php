@@ -1,4 +1,10 @@
 <?php $loans = LoanController::getAllLoans(); ?>
+<?php
+if (isset($_GET['action']) && $_GET['action'] == "loanPdf" && isset($_GET['id_loan']) && isset($_GET['last_name_client'])) {
+    (new PdfController())->loanPdf($_GET['id_loan'], $_GET['last_name_client']);
+}
+?>
+
 <h1 class="h3 mb-4 text-gray-800">Gestión de préstamos</h1>
 <div class="d-flex justify-content-center">
     <div class="card shadow mb-4 col-sm-12 col-xl-12">
@@ -54,9 +60,17 @@
                                 <td><?php echo $loan['amount']; ?></td>
                                 <td class="text-center"><?php echo $loan['state'] == 1 ? '<span class="badge badge-pill badge-secondary">Prestado</span>' : '<span class="badge badge-pill badge-success">Devuelto</span>'; ?></td>
                                 <td class="text-center">
-                                    <a href="#editLoanModal<?php echo $loan['id_loan']; ?>" class="btn btn-primary edit-user" data-toggle="modal">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
+                                    <?php if ($loan['state'] == 1) : ?>
+                                        <a href="index.php?pages=manageLoans&action=returnCheck&id_loan=<?php echo $loan['id_loan'] ?>" class="btn btn-success edit-user">
+                                            <i class="fas fa-thumbs-up"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                    <form method="POST" action="index.php?pages=manageLoans&action=loanPdf&id_loan=<?php echo $loan['id_loan']; ?>&last_name_client=<?php echo urlencode($loan['last_name_client']); ?>">
+
+                                        <button type="submit" name="loan_pdf" class="btn btn-danger edit-user" title="Descargar PDF del prestamo">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -65,6 +79,14 @@
             </div>
         </div>
     </div>
+
+    <?php if (isset($_GET['action'])) {
+        if ($_GET['action'] == "returnCheck") {
+            $controller = new LoanController();
+            $controller->returnCheck();
+        }
+    }
+    ?>
 
     <div class="modal fade" id="createLoanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

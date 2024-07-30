@@ -118,4 +118,66 @@ class LoanController
                 </script>';
         }
     }
+
+    static public function returnCheck()
+    {
+        if (isset($_GET['id_loan'])) {
+            $id_loan = intval($_GET['id_loan']);
+
+            $loan_details = LoanModel::getLoanDetails($id_loan);
+            if (!$loan_details) {
+                echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "No se encontraron detalles del préstamo.",
+                    }).then((result) => {
+                        window.location.href = "index.php?pages=manageLoans";
+                    });
+                });
+            </script>';
+                return;
+            }
+
+            $fk_book_id = intval($loan_details['fk_book_id']);
+            $amount = intval($loan_details['amount']);
+
+            $execute = LoanModel::returnCheck($id_loan);
+            if ($execute) {
+                $available_amount = BookModel::getBookQuantity($fk_book_id);
+
+                BookModel::updateBookQuantity($fk_book_id, $available_amount + $amount);
+
+                echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Éxito",
+                        text: "Préstamo concluído.",
+                    }).then((result) => {
+                        window.location.href = "index.php?pages=manageLoans";
+                    });
+                });
+            </script>';
+            } else {
+                echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "No se pudo concluir el préstamo.",
+                    }).then((result) => {
+                        window.location.href = "index.php?pages=manageLoans";
+                    });
+                });
+            </script>';
+            }
+        }
+    }
+
+    static public function getLoanDetails($id_loan)
+    {
+        return LoanModel::fetchLoanDetails($id_loan);
+    }
 }
