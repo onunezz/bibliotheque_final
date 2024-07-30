@@ -58,4 +58,27 @@ class LoanModel
             print_r($stmt->errorInfo());
         }
     }
+
+    public static function getLoanDetails($id_loan)
+    {
+        $db = MysqlDb::connect();
+        $stmt = $db->prepare("SELECT fk_book_id, amount FROM loans WHERE id = :id_loan");
+        $stmt->bindParam(":id_loan", $id_loan, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    static public function returnCheck($id)
+    {
+        $sql = "UPDATE loans SET state = 2 WHERE id = ?;";
+        $stmt = MysqlDb::connect()->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            print_r($stmt->errorInfo());
+            return false;
+        }
+        $stmt = null;
+    }
 }

@@ -31,7 +31,7 @@ class ClientModel
     static  public function checkForDuplicates($value1, $value2)
     {
         try {
-            $checkQuery = "SELECT COUNT(*) FROM users WHERE dni = ? OR email = ? ";
+            $checkQuery = "SELECT COUNT(*) FROM clients WHERE dni = ? OR email = ? ";
             $checkStatement = MysqlDb::connect()->prepare($checkQuery);
             $checkStatement->bindParam(1, $value1, PDO::PARAM_STR);
             $checkStatement->bindParam(2, $value2, PDO::PARAM_STR);

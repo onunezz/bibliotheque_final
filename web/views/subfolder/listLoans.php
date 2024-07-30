@@ -54,8 +54,13 @@
                                 <td><?php echo $loan['amount']; ?></td>
                                 <td class="text-center"><?php echo $loan['state'] == 1 ? '<span class="badge badge-pill badge-secondary">Prestado</span>' : '<span class="badge badge-pill badge-success">Devuelto</span>'; ?></td>
                                 <td class="text-center">
-                                    <a href="#editLoanModal<?php echo $loan['id_loan']; ?>" class="btn btn-primary edit-user" data-toggle="modal">
-                                        <i class="fas fa-edit"></i>
+                                    <?php if ($loan['state'] == 1) : ?>
+                                        <a href="index.php?pages=manageLoans&action=returnCheck&id_loan=<?php echo $loan['id_loan'] ?>" class="btn btn-success edit-user">
+                                            <i class="fas fa-thumbs-up"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                    <a href="index.php?pages=manageLoans&action=returnCheck&id_loan=<?php echo $loan['id_loan'] ?>" class="btn btn-danger edit-user">
+                                        <i class="fas fa-file-pdf"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -65,6 +70,14 @@
             </div>
         </div>
     </div>
+
+    <?php if (isset($_GET['action'])) {
+        if ($_GET['action'] == "returnCheck") {
+            $controller = new LoanController();
+            $controller->returnCheck();
+        }
+    }
+    ?>
 
     <div class="modal fade" id="createLoanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
