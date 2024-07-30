@@ -43,7 +43,7 @@
                                 <td><?php echo htmlspecialchars($client['dni']); ?></td>
                                 <td><?php echo htmlspecialchars($client['email']); ?></td>
                                 <td><?php echo htmlspecialchars($client['address']); ?></td>
-                                <td><?php echo $client['state'] == 1 ? '<p style="color: green;">Activo</p>' : '<p style="color: red;">Inactivo</p>'; ?></td>
+                                <td class="text-center"><?php echo $client['state'] == 1 ? '<span class="badge badge-pill badge-success">Activo</span>' : '<span class="badge badge-pill badge-danger">Inactivo</span>'; ?></td>
                                 <td class="text-center">
                                     <a href="#editClientModal<?php echo htmlspecialchars($client['id_client']); ?>" class="btn btn-primary edit-user" data-toggle="modal">
                                         <i class="fas fa-edit"></i>

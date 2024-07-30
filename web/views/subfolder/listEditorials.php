@@ -34,7 +34,7 @@
                             <tr>
                                 <td><?php echo $editorial['id_editorial'] ?></td>
                                 <td><?php echo $editorial['name'] ?></td>
-                                <td><?php echo $editorial['state'] == 1 ? 'Activa' : 'Inactiva'; ?></td>
+                                <td class="text-center"><?php echo $editorial['state'] == 1 ? '<span class="badge badge-pill badge-success">Activa</span>' : '<span class="badge badge-pill badge-danger">Inactiva</span>'; ?></td>
                                 <td class="text-center">
                                     <a href="#editEditorialModal<?php echo $editorial['id_editorial']; ?>" class="btn btn-primary edit-user" data-toggle="modal">
                                         <i class="fas fa-edit"></i>
