@@ -42,11 +42,6 @@
                                 <td class="text-center"><?php echo $user['fk_role_id'] == 1 ? '<span class="badge badge-pill badge-success">Administrador/a</span>' : '<span class="badge badge-pill badge-primary">Bibliotecario/a</span>'; ?></td>
                                 <td class="text-center"><?php echo $user['state'] == 1 ? '<span class="badge badge-pill badge-success">Activo</span>' : '<span class="badge badge-pill badge-danger">Inactivo</span>'; ?></td>
                                 <td class="text-center">
-                                    <?php if ($user['state'] == 1) : ?>
-                                        <a href="index.php?pages=manageUsers&action=disableUser&id_user=<?php echo $user['id_user'] ?>" class="btn btn-success" title="Deshabilitar usuario"><i class="fas fa-toggle-on"></i></a>
-                                    <?php else : ?>
-                                        <a href="index.php?pages=manageUsers&action=enableUser&id_user=<?php echo $user['id_user'] ?>" class="btn btn-danger" title="Habilitar usuario"><i class="fas fa-toggle-off"></i></a>
-                                    <?php endif; ?>
                                     <a href="#editUserModal<?php echo htmlspecialchars($user['id_user']); ?>" class="btn btn-primary edit-user" data-toggle="modal">
                                         <i class="fas fa-edit"></i>
                                     </a>
@@ -114,3 +109,52 @@
         $controller->newUser();
     }
     ?>
+
+    <?php foreach ($users as $user) : ?>
+
+        <div class="modal fade" id="editUserModal<?php echo htmlspecialchars($user['id_user']); ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Editar datos de usuario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editUserForm<?php echo htmlspecialchars($user['id_user']); ?>" method="POST" action="">
+                            <input type="hidden" name="id_user" value="<?php echo htmlspecialchars($user['id_user']); ?>">
+                            <div class="row">
+                                <div class="form-group w-75 col-md-6">
+                                    <label for="lastNameUser<?php echo htmlspecialchars($user['id_user']); ?>">Apellido/s</label>
+                                    <input type="text" class="form-control" id="lastNameClient<?php echo htmlspecialchars($client['id_user']); ?>" name="lastNameUser" value="<?php echo htmlspecialchars($user['last_name']); ?>" required>
+                                </div>
+                                <div class="form-group w-75 col-md-6">
+                                    <label for="nameUser<?php echo htmlspecialchars($client['id_user']); ?>">Nombre/s</label>
+                                    <input type="text" class="form-control" id="nameUser<?php echo htmlspecialchars($user['id_user']); ?>" name="nameUser" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group w-75 col-md-12">
+                                    <label for="fk_role_id<?php echo htmlspecialchars($user['id_user']); ?>">Rol</label>
+                                    <select class="form-control" name="fk_role_id" id="fk_role_id<?php echo htmlspecialchars($user['id_user']); ?>" required>
+                                        <?php (new RoleController())->RolesSelect($user['fk_role_id']); ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" form="editUserForm<?php echo htmlspecialchars($user['id_user']); ?>" class="btn btn-primary" name="changeUser">Guardar cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <?php endforeach; ?>
+
+    <?php if (isset($_POST['changeUser'])) {
+        $controller = new UserController();
+        $controller->updateUser();
+    }

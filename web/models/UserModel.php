@@ -12,7 +12,7 @@ class UserModel
         $row = $statement->fetch(PDO::FETCH_ASSOC);
 
         if ($row) {
-            if ($password === $row['password']) {
+            if (password_verify($password, $row['password'])) {
                 return $row;
             }
         }
@@ -98,10 +98,10 @@ class UserModel
         }
     }
 
-    static public function newuser($last_name, $name, $dni, $fk_role_id, $email)
+    static public function newuser($last_name, $name, $dni, $fk_role_id, $email, $hashedPassword)
     {
-        $sql = "INSERT INTO users (last_name, name, dni, fk_role_id, email, state)
-                VALUES (:last_name, :name, :dni, :fk_role_id, :email, 1);";
+        $sql = "INSERT INTO users (last_name, name, dni, fk_role_id, email, password)
+                VALUES (:last_name, :name, :dni, :fk_role_id, :email, :password);";
 
         $stmt = MysqlDb::connect()->prepare($sql);
         $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
@@ -109,11 +109,34 @@ class UserModel
         $stmt->bindParam(':dni', $dni, PDO::PARAM_INT);
         $stmt->bindParam(':fk_role_id', $fk_role_id, PDO::PARAM_INT);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             return $stmt;
         } else {
             print_r($stmt->errorInfo());
         }
+    }
+
+    static public function updateUser($id, $last_name, $name, $fk_role_id)
+    {
+        $sql = "UPDATE users
+        SET last_name = :last_name, name = :name,
+            fk_role_id = :fk_role_id
+        WHERE id = :id";
+
+        $stmt = MysqlDb::connect()->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+        $stmt->bindParam(':fk_role_id', $fk_role_id, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            return $stmt;
+        } else {
+            print_r($stmt->errorInfo());
+        }
+
+        $stmt = null;
     }
 }

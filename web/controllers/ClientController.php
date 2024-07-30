@@ -319,7 +319,7 @@ class ClientController
                         title: "Error",
                         text: "Nombres y/o apellidos demasiado largos.",
                     }).then((result) => {
-                        window.location.href = "index.php?pages=manageClients";$("#editClientModal").modal("show");
+                        window.location.href = "index.php?pages=manageClients";
                     });
                 });
                 </script>';

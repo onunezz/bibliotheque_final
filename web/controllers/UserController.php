@@ -66,6 +66,9 @@ class UserController
             $lastNameUser = ucwords(strtolower(trim($_POST['lastNameUser'])));
             $nameUser = ucwords(strtolower(trim($_POST['nameUser'])));
             $fk_role_id = intval($_POST['fk_role_id']);
+            $generatePassword = self::generateRandomPassword(14);
+            $hashedPassword = password_hash($generatePassword, PASSWORD_DEFAULT);
+
             if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u", $nameUser) || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u", $lastNameUser)) {
                 echo '<script>
                     document.addEventListener("DOMContentLoaded", function() {
@@ -143,8 +146,9 @@ class UserController
             </script>';
                 return;
             } else {
-                $execute = UserModel::newUser($lastNameUser, $nameUser, $dniUser, $fk_role_id, $emailUser);
+                $execute = UserModel::newUser($lastNameUser, $nameUser, $dniUser, $fk_role_id, $emailUser, $hashedPassword);
                 if ($execute) {
+                    MailerController::sendNewUser($generatePassword, $emailUser, $nameUser, $lastNameUser);
                     echo '<script>
                 document.addEventListener("DOMContentLoaded", function() {
                     Swal.fire({
@@ -185,5 +189,83 @@ class UserController
             });
             </script>';
         }
+    }
+
+    static public function updateUser()
+    {
+        $id = intval($_POST['id_user']);
+        $last_name = ucwords(strtolower(trim($_POST['lastNameUser'])));
+        $name = ucwords(strtolower(trim($_POST['nameUser'])));
+        $fk_role_id = intval(trim($_POST['fk_role_id']));
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u", $name) || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u", $last_name)) {
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Los nombres y/o apellidos sólo pueden contener letras y espacios",
+                    }).then((result) => {
+                        window.location.href = "index.php?pages=manageUsers";
+                    });
+                });
+                </script>';
+            return;
+        }
+
+        if (strlen($name) > 64 || strlen($last_name) > 64) {
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Nombres y/o apellidos demasiado largos.",
+                    }).then((result) => {
+                        window.location.href = "index.php?pages=manageUsers";
+                    });
+                });
+                </script>';
+            return;
+        }
+
+        $execute = UserModel::updateUser($id, $last_name, $name, $fk_role_id);
+        if ($execute) {
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Éxito",
+                        text: "El cliente se actualizó correctamente.",
+                        showConfirmButton: false,
+                        timer: 2000,
+                    }).then((result) => {
+                        window.location.href = "index.php?pages=manageUsers";
+                    });
+                });
+                    </script>';
+        } else {
+            echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Hubo un problema al editar al cliente.",
+                }).then((result) => {
+                    window.location.href = "index.php?pages=manageUsers";
+                });
+            });
+            </script>';
+        }
+    }
+
+    static public function generateRandomPassword($length)
+    {
+        $character = '123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ';
+        $password = "";
+        for ($i = 0; $i < $length; $i++) {
+            $index = rand(0, strlen($character) - 1);
+            $password .= $character[$index];
+        }
+
+        return $password;
     }
 }

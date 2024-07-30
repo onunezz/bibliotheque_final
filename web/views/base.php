@@ -19,6 +19,8 @@
 							case 1:
 								include_once "getRoles/getAdminRol.php";
 								break;
+							case 2:
+								include_once "getRoles/getLibrarianRol.php";
 						}
 					} else {
 						include "views/pages/home.php";
