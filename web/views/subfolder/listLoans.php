@@ -65,12 +65,9 @@ if (isset($_GET['action']) && $_GET['action'] == "loanPdf" && isset($_GET['id_lo
                                             <i class="fas fa-thumbs-up"></i>
                                         </a>
                                     <?php endif; ?>
-                                    <form method="POST" action="index.php?pages=manageLoans&action=loanPdf&id_loan=<?php echo $loan['id_loan']; ?>&last_name_client=<?php echo urlencode($loan['last_name_client']); ?>">
-
-                                        <button type="submit" name="loan_pdf" class="btn btn-danger edit-user" title="Descargar PDF del prestamo">
-                                            <i class="fas fa-file-pdf"></i>
-                                        </button>
-                                    </form>
+                                    <a href="index.php?pages=manageLoans&action=loanPdf&id_loan=<?php echo $loan['id_loan']; ?>&last_name_client=<?php echo urlencode($loan['last_name_client']); ?>" target="_blank" class="btn btn-danger edit-user" title="Descargar PDF del préstamo">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach ?>

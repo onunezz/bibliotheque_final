@@ -6,6 +6,12 @@ class PdfModel
         define('FPDF_FONTPATH', 'vendor/fpdf/font');
         require_once 'vendor/fpdf/fpdf.php';
 
+        $loanDateObj = new DateTime($loan['loan_date']);
+        $formattedLoanDate = $loanDateObj->format('d-m-Y');
+
+        $returnDateObj = new DateTime($loan['return_date']);
+        $formattedReturnDate = $returnDateObj->format('d-m-Y');
+
         $pdf = new FPDF('P', 'mm', array(80, 150));
         $pdf->AddPage();
         $pdf->SetMargins(5, 5, 5);
@@ -34,14 +40,13 @@ class PdfModel
         $pdf->Cell(72, 5, utf8_decode($loan['last_name_client'] . ' ' . $loan['name_client']), 1, 0, 'L');
         $pdf->Ln();
         $pdf->SetFont('Arial', '', 8);
-        $pdf->Cell(0, 10, utf8_decode('Fecha de Préstamo: ' . $loan['loan_date']), 0, 1);
+        $pdf->Cell(0, 10, utf8_decode('Fecha de préstamo: ' . $formattedLoanDate), 0, 1);
+        $pdf->Cell(0, 10, utf8_decode('Fecha de devolucion: ' . $formattedReturnDate), 0, 1);
 
-        if (!file_exists('vendor/fpdf')) {
-            mkdir('vendor/fpdf', 0777, true);
-        }
+        ob_end_clean();
 
-        $route = 'vendor/fpdf/Prestamo-' . $loan['id_loan'] . '.pdf';
-        $pdf->Output('F', $route);
+        $route = 'bibliotheque - Prestamo-' . $loan['id'] . '-' . $loan['last_name_client'] . '.pdf';
+        $pdf->Output('I', $route);
 
         return $route;
     }
