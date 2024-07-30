@@ -47,16 +47,9 @@
     <hr class="sidebar-divider mb-0">
 
     <li class="nav-item margin-nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Administración</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Usuarios</a>
-                <a class="collapse-item" href="#">Mis datos</a>
-            </div>
-        </div>
+        <a class="nav-link" href="index.php?pages=manageUsers">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Usuarios</span></a>
     </li>
 
     <li class="nav-item margin-nav-item">

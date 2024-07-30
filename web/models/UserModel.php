@@ -30,8 +30,8 @@ class UserModel
                  users.dni AS dni,
                  users.password AS password, 
                  users.state AS state,              
-                 users.fk_role_id AS id_role,
-                 roles.name AS name_role
+                 users.fk_role_id AS fk_role_id,
+                 roles.description AS description_role
              FROM 
                  users
              JOIN 
@@ -48,5 +48,72 @@ class UserModel
         }
 
         $stmt = null;
+    }
+
+    static public function getAllUsers()
+    {
+        $sql = "SELECT 
+        users.id AS id_user,
+        users.last_name AS last_name,
+        users.name AS name,
+        users.dni AS dni,
+        users.fk_role_id AS fk_role_id,
+        users.email AS email,
+        users.state AS state
+        FROM
+        users;";
+
+        $stmt = MysqlDb::connect()->prepare($sql);
+
+        if ($stmt->execute()) {
+            $authors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = null;
+            return $authors;
+        } else {
+            print_r($stmt->errorInfo());
+            $stmt = null;
+            return [];
+        }
+    }
+
+    static  public function checkForDuplicates($value1, $value2)
+    {
+        try {
+            $checkQuery = "SELECT COUNT(*) FROM users WHERE dni = ? OR email = ? ";
+            $checkStatement = MysqlDb::connect()->prepare($checkQuery);
+            $checkStatement->bindParam(1, $value1, PDO::PARAM_STR);
+            $checkStatement->bindParam(2, $value2, PDO::PARAM_STR);
+            $checkStatement->execute();
+
+            $count = $checkStatement->fetchColumn();
+
+            if ($count > 0) {
+                return true;
+            }
+
+            return false;
+        } catch (PDOException $e) {
+            echo "Error en la validación de duplicados: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    static public function newuser($last_name, $name, $dni, $fk_role_id, $email)
+    {
+        $sql = "INSERT INTO users (last_name, name, dni, fk_role_id, email, state)
+                VALUES (:last_name, :name, :dni, :fk_role_id, :email, 1);";
+
+        $stmt = MysqlDb::connect()->prepare($sql);
+        $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':dni', $dni, PDO::PARAM_INT);
+        $stmt->bindParam(':fk_role_id', $fk_role_id, PDO::PARAM_INT);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            return $stmt;
+        } else {
+            print_r($stmt->errorInfo());
+        }
     }
 }

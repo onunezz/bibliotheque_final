@@ -36,15 +36,14 @@
                                 <td><?php echo $editorial['name'] ?></td>
                                 <td class="text-center"><?php echo $editorial['state'] == 1 ? '<span class="badge badge-pill badge-success">Activa</span>' : '<span class="badge badge-pill badge-danger">Inactiva</span>'; ?></td>
                                 <td class="text-center">
-                                    <a href="#editEditorialModal<?php echo $editorial['id_editorial']; ?>" class="btn btn-primary edit-user" data-toggle="modal">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-
                                     <?php if ($editorial['state'] == 1) : ?>
                                         <a href="index.php?pages=manageEditorials&action=disableEditorial&id_editorial=<?php echo $editorial['id_editorial'] ?>" class="btn btn-success" title="Deshabilitar editorial"><i class="fas fa-toggle-on"></i></a>
                                     <?php else : ?>
                                         <a href="index.php?pages=manageEditorials&action=enableEditorial&id_editorial=<?php echo $editorial['id_editorial'] ?>" class="btn btn-danger" title="Habilitar editorial"><i class="fas fa-toggle-off"></i></a>
                                     <?php endif; ?>
+                                    <a href="#editEditorialModal<?php echo $editorial['id_editorial']; ?>" class="btn btn-primary edit-user" data-toggle="modal">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach ?>

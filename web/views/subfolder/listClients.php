@@ -45,15 +45,14 @@
                                 <td><?php echo htmlspecialchars($client['address']); ?></td>
                                 <td class="text-center"><?php echo $client['state'] == 1 ? '<span class="badge badge-pill badge-success">Activo</span>' : '<span class="badge badge-pill badge-danger">Inactivo</span>'; ?></td>
                                 <td class="text-center">
-                                    <a href="#editClientModal<?php echo htmlspecialchars($client['id_client']); ?>" class="btn btn-primary edit-user" data-toggle="modal">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-
                                     <?php if ($client['state'] == 1) : ?>
                                         <a href="index.php?pages=manageClients&action=disableClient&id_client=<?php echo $client['id_client'] ?>" class="btn btn-success" title="Deshabilitar cliente"><i class="fas fa-toggle-on"></i></a>
                                     <?php else : ?>
                                         <a href="index.php?pages=manageClients&action=enableClient&id_client=<?php echo $client['id_client'] ?>" class="btn btn-danger" title="Habilitar cliente"><i class="fas fa-toggle-off"></i></a>
                                     <?php endif; ?>
+                                    <a href="#editClientModal<?php echo htmlspecialchars($client['id_client']); ?>" class="btn btn-primary edit-user" data-toggle="modal">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
