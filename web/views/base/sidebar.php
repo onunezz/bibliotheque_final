@@ -60,7 +60,7 @@
     </li>
 
     <li class="nav-item margin-nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="index.php?pages=home&action=dailyReport" target="_blank">
             <i class="fas fa-fw fa-download"></i>
             <span>Reporte</span></a>
     </li>
@@ -72,3 +72,8 @@
     </div>
 
 </ul>
+<?php
+if (isset($_GET['action']) && $_GET['action'] == "dailyReport") {
+    LoanController::generateDailyReport();
+}
+?>
