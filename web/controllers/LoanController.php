@@ -186,10 +186,6 @@ class LoanController
         $date = date('Y-m-d');
         $loans = LoanModel::fetchLoansByDate($date);
 
-        if (!$loans) {
-            die('No hay préstamos para el día de hoy.');
-        }
-
         $route = PdfModel::generateDailyReportPdf($loans, $date);
 
         if (file_exists($route)) {
