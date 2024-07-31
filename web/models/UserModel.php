@@ -3,7 +3,7 @@ class UserModel
 {
     static public function login($email, $password)
     {
-        $query = "SELECT id, email, dni, password, fk_role_id, state
+        $query = "SELECT id, email, dni, password, change_password, fk_role_id, state
           FROM users WHERE email = :email";
 
         $statement = MysqlDb::connect()->prepare($query);
@@ -29,6 +29,7 @@ class UserModel
                  users.email AS email,
                  users.dni AS dni,
                  users.password AS password, 
+                 users.change_password AS change_password,
                  users.state AS state,              
                  users.fk_role_id AS fk_role_id,
                  roles.description AS description_role
@@ -137,6 +138,83 @@ class UserModel
             print_r($stmt->errorInfo());
         }
 
+        $stmt = null;
+    }
+
+    static public function changePasswordStart($id, $newPassword)
+    {
+        $sql = "UPDATE users SET password = ?, change_password = 1 WHERE id = ?";
+
+        $stmt = MysqlDb::connect()->prepare($sql);
+
+
+        $stmt->bindParam(1, $newPassword, PDO::PARAM_STR);
+        $stmt->bindParam(2, $id, PDO::PARAM_INT);
+
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            print_r($stmt->errorInfo());
+        }
+
+        $stmt = null;
+    }
+
+    static public function updateChangedPassword($id)
+    {
+        $sql = "UPDATE users SET change_password = 0 WHERE id = ?";
+        $stmt = MysqlDb::connect()->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            print_r($stmt->errorInfo());
+            return false;
+        }
+        $stmt = null;
+    }
+
+    static public function updateNewPassword($password, $id)
+    {
+        $sql = "UPDATE users SET password = ? WHERE id = ?";
+        $stmt = MysqlDb::connect()->prepare($sql);
+        $stmt->bindParam(1, $password, PDO::PARAM_STR);
+        $stmt->bindParam(2, $id, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            print_r($stmt->errorInfo());
+            return false;
+        }
+        $stmt = null;
+    }
+
+    static public function disableUser($id)
+    {
+        $sql = "UPDATE users SET state = 2 WHERE id = ?";
+        $stmt = MysqlDb::connect()->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            print_r($stmt->errorInfo());
+            return false;
+        }
+        $stmt = null;
+    }
+
+    static public function activateUser($id)
+    {
+        $sql = "UPDATE users SET state = 1 WHERE id = ?";
+        $stmt = MysqlDb::connect()->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            print_r($stmt->errorInfo());
+            return false;
+        }
         $stmt = null;
     }
 }

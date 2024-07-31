@@ -18,9 +18,9 @@
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="ID: activate to sort column ascending" style="width: 55px;">ID</th>
                             <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Nombre: activate to sort column descending" aria-sort="ascending" style="width: 230px;">Nombre</th>
                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="width: 105px;">Email</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Rol: activate to sort column ascending" style="width: 105px;">Rol</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Estado: activate to sort column ascending" style="width: 105px;">Estado</th>
-                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 45px;">Acciones</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Rol: activate to sort column ascending" style="width: 85px;">Rol</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Estado: activate to sort column ascending" style="width: 85px;">Estado</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 95px;">Acciones</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -42,8 +42,16 @@
                                 <td class="text-center"><?php echo $user['fk_role_id'] == 1 ? '<span class="badge badge-pill badge-success">Administrador/a</span>' : '<span class="badge badge-pill badge-primary">Bibliotecario/a</span>'; ?></td>
                                 <td class="text-center"><?php echo $user['state'] == 1 ? '<span class="badge badge-pill badge-success">Activo</span>' : '<span class="badge badge-pill badge-danger">Inactivo</span>'; ?></td>
                                 <td class="text-center">
+                                    <?php if ($user['state'] == 1) : ?>
+                                        <a href="index.php?pages=manageUsers&action=disableUser&id_user=<?php echo $user['id_user'] ?>" class="btn btn-success" title="Deshabilitar usuario"><i class="fas fa-toggle-on"></i></a>
+                                    <?php else : ?>
+                                        <a href="index.php?pages=manageUsers&action=enableUser&id_user=<?php echo $user['id_user'] ?>" class="btn btn-danger" title="Habilitar usuario"><i class="fas fa-toggle-off"></i></a>
+                                    <?php endif; ?>
                                     <a href="#editUserModal<?php echo htmlspecialchars($user['id_user']); ?>" class="btn btn-primary edit-user" data-toggle="modal">
                                         <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="index.php?pages=manageUsers&action=generatePassword&id_user=<?php echo htmlspecialchars($user['id_user']); ?>" class="btn btn-warning edit-user" data-toggle="modal">
+                                        <i class="fas fa-key"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -53,6 +61,23 @@
             </div>
         </div>
     </div>
+
+    <?php if (isset($_GET['action'])) {
+        if ($_GET['action'] == "disableUser") {
+            $controller = new UserController();
+            $controller->disableAccountUser();
+        }
+
+        if ($_GET['action'] == "enableUser") {
+            $controller = new UserController();
+            $controller->enableAccountUser();
+        }
+
+        if ($_GET['action'] == "generatePassword") {
+            $controller = new UserController();
+            $controller->sendNewAleatoryPasswordEmail();
+        }
+    } ?>
 
     <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

@@ -6,7 +6,8 @@ if (
     ($_GET['pages'] == "manageBooks") ||
     ($_GET['pages'] == "manageClients") ||
     ($_GET['pages'] == "manageLoans") ||
-    ($_GET['pages'] == "manageUsers")
+    ($_GET['pages'] == "manageUsers") ||
+    ($_GET['pages'] == "changePasswordStart")
 ) {
     include "views/pages/" . $_GET['pages'] . ".php";
 } elseif ($_GET['pages'] == "logout") {

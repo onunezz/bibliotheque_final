@@ -21,6 +21,7 @@
 								break;
 							case 2:
 								include_once "getRoles/getLibrarianRol.php";
+								break;
 						}
 					} else {
 						include "views/pages/home.php";
